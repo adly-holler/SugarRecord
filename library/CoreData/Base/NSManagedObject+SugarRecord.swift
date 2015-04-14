@@ -165,19 +165,6 @@ extension NSManagedObject
         return finder
     }
     
-
-    //MARK: - Count
-    
-    /**
-    Returns a the count of elements of this type
-    
-    :returns: Int
-    */
-    public class func count() -> Int
-    {
-        return all().count()
-    }
-    
     //MARK: - Deletion
     
     /**
@@ -193,21 +180,6 @@ extension NSManagedObject
     //MARK: - Creation
     
     /**
-    Creates a new object without inserting it in the context
-    
-    :returns: Created database object
-    */
-    public class func create() -> AnyObject
-    {
-        SugarRecordLogger.logLevelVerbose.log("Object created")
-        var object: AnyObject?
-        SugarRecord.operation(NSManagedObject.stackType(), closure: { (context) -> () in
-            object = context.createObject(self)
-        })
-        return object!
-    }
-    
-    /**
     Create a new object without inserting it in the passed context
     
     :param: context Context where the object is going to be created
@@ -221,21 +193,6 @@ extension NSManagedObject
     }
     
     //MARK: - Saving
-    
-    /**
-    Saves the object in the object context
-    
-    :returns: Bool indicating if the object has been properly saved
-    */
-    public func save () -> Bool
-    {
-        SugarRecordLogger.logLevelVerbose.log("Object saved in context")
-        var saved: Bool = false
-        self.save(false, completion: { (error) -> () in
-            saved = error == nil
-        })
-        return saved
-    }
     
     /**
     Saves the object in the object context asynchronously (or not) passing a completion closure
